@@ -8,10 +8,10 @@ const int num_of_leds = 8;
 const int size_of_frame = 100;
 unsigned long int rpm, maxRPM;
 
-//Angles
+// Angles
 double angle = 0;
 double anglePerSecond = 6;
-clock_t lastUpdateTime;
+double lastUpdateTime;
 int sliceIndex = 0;
 
 // Screen
@@ -68,7 +68,7 @@ int getSliceIndex(double angle, double maxAngle, double minAngle)
 
 void updateAngle()
 {
-  clock_t currentTime = clock();
+  double currentTime = millis();
   double timeDifference = (currentTime - lastUpdateTime);
   angle += (anglePerSecond * timeDifference / 1000);
   while (angle > (2 * M_PI))
@@ -83,22 +83,30 @@ void setup()
   // set LED pins as outputs
   Serial.begin(9600);
   pinMode(13, INPUT);
-  for (int i = 0; i < num_of_leds; i++){
+  for (int i = 0; i < num_of_leds; i++)
+  {
     pinMode(led_pins[i], OUTPUT);
   }
   TextFrame textFrame;
   char text[] = {'T', 'E', 'S', 'T'};
   frame = textFrame.convertStringToFrame(text);
   size = textFrame.getSize();
-  lastUpdateTime = clock();
+  lastUpdateTime = millis();
 }
 
 void loop()
 {
-  update_leds(frame[sliceIndex]);
+  if (sliceIndex == -1)
+  {
+    update_leds(0);
+  }
+  else
+  {
+    update_leds(frame[sliceIndex]);
+  }
   // Delay for framerate
   updateAngle();
-  //sliceIndex = getSliceIndex(angle, (3 * M_PI) / 2, M_PI / 2);
+  // sliceIndex = getSliceIndex(angle, (3 * M_PI) / 2, M_PI / 2);
   sliceIndex = getSliceIndex(angle, 0, 2 * M_PI);
   // sensor
   float a = digitalRead(13);
