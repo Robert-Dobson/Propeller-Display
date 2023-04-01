@@ -22,10 +22,10 @@ void drawSlice(int index) {
 int updateAngle() {
     double currentTime = time(0);
     double timeDifference = difftime(currentTime, lastUpdateTime);
-    angle += (anglePerSecond*timeDifference) % 360;
+    angle += (anglePerSecond*timeDifference) % (2 * M_PI);
     lastUpdateTime = currentTime;
 }
 
 void getSlice() {
-    
+
 }
