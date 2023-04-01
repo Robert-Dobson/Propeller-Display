@@ -6,6 +6,7 @@
 const int led_pins[] = {2, 3, 4, 5, 6, 7, 8, 9};
 const int num_of_leds = 8;
 const int size_of_frame = 100;
+unsigned long int rpm, maxRPM;
 
 //Angles
 double angle = 0;
@@ -80,8 +81,9 @@ void updateAngle()
 void setup()
 {
   // set LED pins as outputs
-  for (int i = 0; i < num_of_leds; i++)
-  {
+  Serial.begin(9600);
+  pinMode(13, INPUT);
+  for (int i = 0; i < num_of_leds; i++){
     pinMode(led_pins[i], OUTPUT);
   }
   TextFrame textFrame;
@@ -98,4 +100,7 @@ void loop()
   updateAngle();
   //sliceIndex = getSliceIndex(angle, (3 * M_PI) / 2, M_PI / 2);
   sliceIndex = getSliceIndex(angle, 0, 2 * M_PI);
+  // sensor
+  float a = digitalRead(13);
+  Serial.println(a);
 }
