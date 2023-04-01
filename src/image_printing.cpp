@@ -2,7 +2,7 @@
 // #include <Arduino.h>
 #include <math.h>
 #include <time.h>
-#include <iostream>
+
 using namespace std;
 
 bool screen[10][6];
@@ -22,10 +22,12 @@ void drawSlice(int index) {
 int updateAngle() {
     double currentTime = time(0);
     double timeDifference = difftime(currentTime, lastUpdateTime);
-    angle += (anglePerSecond*timeDifference) % (2 * M_PI);
+    angle += (anglePerSecond*timeDifference) % 360;
     lastUpdateTime = currentTime;
 }
 
-void getSlice() {
-
+int getSliceIndex(int frame[][6], double angle) {
+    // Calculate proportion through frame using angle then return correct slice of frame
+    int length = sizeof(frame)/sizeof(int[6]);
+    return round(angle/(2 * M_PI) * length); 
 }
