@@ -32,11 +32,12 @@ unsigned char Alphabet[26][8]=
     {0b11000011,0b11100011,0b11110011,0b11111011,0b11011111,0b11001111,0b11000111,0b11000011}
     };
 
-int spaceSize = 2;
+int spaceSize = 8;
+int spaceBetweenLetters = 1;
 
 
 unsigned char* convertStringToFrame(char* text){
-    unsigned char* frame = (unsigned char*) malloc(sizeof(*text) * 8 * sizeof(unsigned char));
+    unsigned char* frame = (unsigned char*) malloc((sizeof(*text) * 8 +  spaceBetweenLetters)* sizeof(unsigned char));
     int pointerOffset = 0; // Keeping track of position in frame
 
     if (frame != NULL){
@@ -58,9 +59,15 @@ unsigned char* convertStringToFrame(char* text){
                     pointerOffset++;
                 }
             }
+
+            // Add space between letters
+            for (int i = 0; i < spaceBetweenLetters; i++){
+                frame[pointerOffset] = 0;
+                pointerOffset++;
+            }
         }
     }
-
+    return frame;
 }
 
 int getCharFrameIndex(char letter){
