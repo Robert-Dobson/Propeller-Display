@@ -30,6 +30,7 @@ void print_text(char *text){
   frame = textFrame.convertStringToFrame("Hello");
   size = textFrame.getSize();
   
+  print_frame(frame, size);
   delay(1000000);
 
   // Free 
@@ -45,5 +46,5 @@ void setup() {
 }
 
 void loop() {
-  
+
 }
