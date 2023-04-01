@@ -52,7 +52,7 @@ unsigned char* convertStringToFrame(char* text){
                     frame[pointerOffset] = 0; 
                     pointerOffset++;
                 }
-            } else{
+            } else if(65 < letter < 90){
                 // Otherwise copy in slices from alphabet
                 for (int i = 0; i < 8; i++){
                     frame[pointerOffset] = Alphabet[getCharFrameIndex(letter)][i];
