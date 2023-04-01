@@ -25,22 +25,25 @@ void print_frame(unsigned char *frame, int size){
   }
 }
 
+void print_text(char *text){
+  TextFrame textFrame;
+  frame = textFrame.convertStringToFrame("Hello");
+  size = textFrame.getSize();
+  
+  delay(1000000);
+
+  // Free 
+  free(frame);
+  frame = NULL;
+}
+
 void setup() {
   // set LED pins as outputs
   for (int i = 0; i < num_of_leds; i++){
     pinMode(led_pins[i], OUTPUT);
   }
-
-  TextFrame textFrame;
-  frame = textFrame.convertStringToFrame("Hello");
-  size = textFrame.getSize();
-  
-  // Deal with memory at some point
-  // free(frame);
-  // frame = NULL;
-
 }
 
 void loop() {
-  // Code to print correct slice
+  
 }
