@@ -19,15 +19,15 @@ void drawSlice(int index) {
     
 }
 
-int updateAngle() {
-    double currentTime = time(0);
-    double timeDifference = difftime(currentTime, lastUpdateTime);
-    angle += (anglePerSecond*timeDifference) % 360;
-    lastUpdateTime = currentTime;
-}
+// void updateAngle() {
+//     double currentTime = time(0);
+//     double timeDifference = difftime(currentTime, lastUpdateTime);
+//     angle += (anglePerSecond*timeDifference) % 360;
+//     lastUpdateTime = currentTime;
+// }
 
-int getSliceIndex(int frame[][LEDCount], double angle) {
-    // Calculate proportion through frame using angle then return correct slice of frame
-    int width = sizeof(frame)/sizeof(frame[0]);
-    return round(angle/(2 * M_PI) * width); 
-}
+// int getSliceIndex(int frame[][LEDCount], double angle) {
+//     // Calculate proportion through frame using angle then return correct slice of frame
+//     int width = sizeof(frame)/sizeof(frame[0]);
+//     return round(angle/(2 * M_PI) * width); 
+// }
