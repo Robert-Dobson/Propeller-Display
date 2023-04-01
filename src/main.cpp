@@ -6,6 +6,8 @@
 const int led_pins[] = {2, 3, 4, 5, 6, 7, 8, 9};
 const int num_of_leds = 8;
 const int size_of_frame = 100;
+
+//Angles
 double angle = 0;
 double anglePerSecond = 6;
 clock_t lastUpdateTime;
@@ -92,7 +94,8 @@ void setup()
 void loop()
 {
   update_leds(frame[sliceIndex]);
-  // Delay
+  // Delay for framerate
   updateAngle();
-  sliceIndex = getSliceIndex(angle, (3 * M_PI) / 2, M_PI / 2);
+  //sliceIndex = getSliceIndex(angle, (3 * M_PI) / 2, M_PI / 2);
+  sliceIndex = getSliceIndex(angle, 0, 2 * M_PI);
 }
