@@ -3,6 +3,9 @@
 // #include "game_logic.h"
 #include <time.h>
 
+unsigned char Triangle[] = {0b00000011, 0b00001111, 0b00111111, 0b11111111, 0b11111111, 0b00111111, 0b00001111, 0b00000011};
+unsigned char Square[] = {0b11111111, 0b11111111, 0b11000011, 0b11000011, 0b11000011, 0b11000011, 0b11111111, 0b11111111};
+
 // Constants
 const int led_pins[] = {10, 9, 8, 7, 6, 5, 4, 3};
 const int num_of_leds = 8;
@@ -34,6 +37,7 @@ void update_leds(unsigned char led_vals)
     digitalWrite(led_pins[i], val);
     // Serial.print(val);
   }
+  delay(2);
 }
 
 /*
@@ -96,20 +100,22 @@ void setup()
   }
   
   TextFrame textFrame;
-  char text[] = {'A', 'B', 'C', 'D'};
-  frame = textFrame.convertStringToFrame(text);
-  size = textFrame.getSize();
+  //char text[] = {'A', 'B', 'C', 'D'};
+  //frame = textFrame.convertStringToFrame(text);
+  //size = textFrame.getSize();
   // lastUpdateTime = millis();
 }
 
 void loop()
 {
-  if (size != 0){
-    update_leds(frame[index]);
-    index++;
-    if (index == size){
-      index = 0;
-    }
+  for (int i = 0; i < 8; i++){
+    update_leds(Triangle[i]);
   }
-  delay(1);
+  update_leds(0);
+  update_leds(0);
+  for (int i = 0; i < 8; i++){
+    update_leds(Square[i]);
+  }
+  update_leds(0);
+  update_leds(0);
 }
