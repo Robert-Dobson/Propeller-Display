@@ -99,6 +99,7 @@ void setup()
     pinMode(led_pins[i], OUTPUT);
   }
   
+  /*
   TextFrame textFrame;
   char text[] = {' ', ' ', ' ', 'G', 'O', 'O', 'D', 'B', 'Y', 'E', '\0'};
   
@@ -119,15 +120,14 @@ void setup()
   frame = textFrame.convertStringToFrame(reversetext);
   size = textFrame.getSize();
   // lastUpdateTime = millis();
+  */
 }
 
 void loop()
 {
-  if (size != 0){
-    update_leds(frame[index]);
-    index++;
-    if (index == size){
-      index = 0;
-    }
+  for (int i = 0; i < 8; i++){
+    update_leds(Triangle[i]);
   }
+  update_leds(0);
+  update_leds(0);
 }
