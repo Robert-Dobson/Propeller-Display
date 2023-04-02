@@ -15,7 +15,7 @@ unsigned char *TextFrame::convertStringToFrame(char *text)
     }
     int length = Tindex + 1;
 
-    unsigned char *frame = (unsigned char *)malloc((length * 8 + spaceBetweenLetters) * sizeof(unsigned char));
+    unsigned char *frame = (unsigned char *)malloc((length * 8 + spaceBetweenLetters));
     int index = 0; // Keeping track of position in frame
 
     if (frame != NULL)
@@ -53,7 +53,7 @@ unsigned char *TextFrame::convertStringToFrame(char *text)
             }
         }
 
-        size = index + 1;
+        size = index;
     }
     return frame;
 }

@@ -19,11 +19,14 @@ int size = 0;
 // Timing of demo
 unsigned long startTime = millis();
 int demoSelect = 0;
-const int numOfDemos = 3;
+const int numOfDemos = 6;
 char demoWords[numOfDemos][11] = {
   {' ', ' ', ' ', ' ', ' ', 'H', 'E', 'L', 'L', 'O', '\0'},
   {' ', ' ', ' ', ' ', ' ', ' ', 'B', 'A', 'T', 'H', '\0'},
-  {' ', ' ', ' ', ' ', ' ', ' ', 'H', 'A', 'C', 'K', '\0'} 
+  {' ', ' ', ' ', ' ', ' ', ' ', 'H', 'A', 'C', 'K', '\0'}, 
+  {' ', ' ', ' ', ' ', ' ', ' ', 'V', 'O', 'T', 'E', '\0'},
+  {' ', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'O', 'R', '\0'},
+  {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'U', 'S', '\0'},
 };
 
 // Pass in a slice
@@ -35,7 +38,7 @@ void update_leds(unsigned char led_vals)
     digitalWrite(led_pins[i], val);
     // Serial.print(val);
   }
-  delay(1.5);
+  delay(1.6);
 }
 
 void updateTextFrame(char *text){
@@ -59,6 +62,8 @@ void updateTextFrame(char *text){
   }
   reversetext[length] = '\0';
 
+  
+  Serial.println(reversetext);
   frame = textFrame.convertStringToFrame(reversetext);
   size = textFrame.getSize();
 }
@@ -66,6 +71,7 @@ void updateTextFrame(char *text){
 
 void setup()
 {
+  Serial.begin(9600);
   // set LED pins as outputs
   pinMode(13, INPUT);
   for (int i = 0; i < num_of_leds; i++)
