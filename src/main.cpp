@@ -6,8 +6,11 @@
 const int led_pins[] = {10, 9, 8, 7, 6, 5, 4, 3};
 const int num_of_leds = 8;
 const int size_of_frame = 100;
+const int max_game_tick_time = 300;
+
 unsigned long int rpm, maxRPM;
 const double PI_2 = M_PI * 2;
+int game_tick_time = max_game_tick_time;
 
 // Angles
 double angle = 0;
@@ -28,6 +31,11 @@ void update_leds(unsigned char led_vals)
     digitalWrite(led_pins[i], val);
     //Serial.print(val);
   }
+}
+
+void do_game_process()
+{
+
 }
 
 // Testing only
@@ -116,4 +124,10 @@ void loop()
     //Serial.println(a);
     // Tick speed
     //delay(1);
+    // game
+    game_tick_time--;
+    if (game_tick_time <= 0) {
+      game_tick_time = max_game_tick_time;
+      do_game_process();
+    }
 }
