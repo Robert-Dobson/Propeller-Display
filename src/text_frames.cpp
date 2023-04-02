@@ -29,7 +29,7 @@ unsigned char *TextFrame::convertStringToFrame(char *text)
                     index++;
                 }
             }
-            else if (65 < letter < 90)
+            else if (letter < 90 && letter > 65)
             {
                 // Otherwise copy in slices from alphabet
                 for (int i = 0; i < 8; i++)

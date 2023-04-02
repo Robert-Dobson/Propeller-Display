@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "text_frames.h"
-#include "game_logic.h"
+// #include "game_logic.h"
 #include <time.h>
 
 // Constants
@@ -15,9 +15,11 @@ int game_tick_time = max_game_tick_time;
 
 // Angles
 double angle = 0;
-double anglePerMilisecond = 160.0 / 1000; // Angle per second div by 1000
+double anglePerMilisecond = 120.0 / 1000; // Angle per second div by 1000
 double lastUpdateTime;
 int sliceIndex = 0;
+
+int index = 0;
 
 // Screen
 unsigned char *frame = NULL;
@@ -34,6 +36,7 @@ void update_leds(unsigned char led_vals)
   }
 }
 
+/*
 void do_game_process()
 {
   Serial.println("hi");
@@ -55,6 +58,7 @@ void do_game_process()
     }
   }
 }
+*/
 
 int getSliceIndex(double angle, double maxAngle, double minAngle)
 {
@@ -90,38 +94,22 @@ void setup()
   {
     pinMode(led_pins[i], OUTPUT);
   }
-  // TextFrame textFrame;
-  // char text[] = {'B', 'C', 'S', 'S'};
-  // frame = textFrame.convertStringToFrame(text);
-  // size = textFrame.getSize();
+  
+  TextFrame textFrame;
+  char text[] = {'A', 'B', 'C', 'D'};
+  frame = textFrame.convertStringToFrame(text);
+  size = textFrame.getSize();
   // lastUpdateTime = millis();
 }
 
 void loop()
 {
-  if (sliceIndex == -1)
-  {
-    update_leds(0);
+  if (size != 0){
+    update_leds(frame[index]);
+    index++;
+    if (index == size){
+      index = 0;
+    }
   }
-  else
-  {
-    update_leds(frame[sliceIndex]);
-    // Serial.println(sliceIndex);
-  }
-  // Delay for framerate
-  updateAngle();
-  // sliceIndex = getSliceIndex(angle, (3 * M_PI) / 2, M_PI / 2);
-  sliceIndex = getSliceIndex(angle, PI_2, 0);
-  // sensor
-  // float a = digitalRead(13);
-  // Serial.println(a);
-  // Tick speed
-  // delay(1);
-  // game
-  game_tick_time--;
-  if (game_tick_time <= 0)
-  {
-    game_tick_time = max_game_tick_time;
-    do_game_process();
-  }
+  delay(1);
 }
