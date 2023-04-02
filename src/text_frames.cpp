@@ -34,7 +34,7 @@ unsigned char *TextFrame::convertStringToFrame(char *text)
                 // Otherwise copy in slices from alphabet
                 for (int i = 0; i < 8; i++)
                 {
-                    frame[index] = Alphabet[getCharFrameIndex(letter)][7-i];
+                    frame[index] = Alphabet[getCharFrameIndex(letter)][i];
                     index++;
                 }
             }

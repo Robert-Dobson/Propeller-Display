@@ -3,14 +3,15 @@
 #include <time.h>
 
 // Constants
-const int led_pins[] = {2, 3, 4, 5, 6, 7, 8, 9};
+const int led_pins[] = {10, 9, 8, 7, 6, 5, 4, 3};
 const int num_of_leds = 8;
 const int size_of_frame = 100;
 unsigned long int rpm, maxRPM;
+const double PI_2 = M_PI * 2;
 
 // Angles
 double angle = 0;
-double anglePerSecond = 6;
+double anglePerMilisecond = 160.0 / 1000; //Angle per second div by 1000
 double lastUpdateTime;
 int sliceIndex = 0;
 
@@ -25,6 +26,7 @@ void update_leds(unsigned char led_vals)
   {
     int val = (led_vals >> i) & 0x01;
     digitalWrite(led_pins[i], val);
+    //Serial.print(val);
   }
 }
 
@@ -70,10 +72,10 @@ void updateAngle()
 {
   double currentTime = millis();
   double timeDifference = (currentTime - lastUpdateTime);
-  angle += (anglePerSecond * timeDifference / 1000);
-  while (angle > (2 * M_PI))
+  angle += (anglePerMilisecond * timeDifference);
+  while (angle > (PI_2))
   {
-    angle -= 2 * M_PI;
+    angle -= PI_2;
   }
   lastUpdateTime = currentTime;
 }
@@ -81,14 +83,14 @@ void updateAngle()
 void setup()
 {
   // set LED pins as outputs
-  Serial.begin(9600);
+  //Serial.begin(9600);
   pinMode(13, INPUT);
   for (int i = 0; i < num_of_leds; i++)
   {
     pinMode(led_pins[i], OUTPUT);
   }
   TextFrame textFrame;
-  char text[] = {'T', 'E', 'S', 'T'};
+  char text[] = {'B', 'C', 'S', 'S'};
   frame = textFrame.convertStringToFrame(text);
   size = textFrame.getSize();
   lastUpdateTime = millis();
@@ -96,19 +98,22 @@ void setup()
 
 void loop()
 {
-  if (sliceIndex == -1)
-  {
-    update_leds(0);
-  }
-  else
-  {
-    update_leds(frame[sliceIndex]);
-  }
-  // Delay for framerate
-  updateAngle();
-  // sliceIndex = getSliceIndex(angle, (3 * M_PI) / 2, M_PI / 2);
-  sliceIndex = getSliceIndex(angle, 0, 2 * M_PI);
-  // sensor
-  float a = digitalRead(13);
-  Serial.println(a);
+    if (sliceIndex == -1)
+    {
+      update_leds(0);
+    }
+    else
+    {
+      update_leds(frame[sliceIndex]);
+      //Serial.println(sliceIndex);
+    }
+    // Delay for framerate
+    updateAngle();
+    // sliceIndex = getSliceIndex(angle, (3 * M_PI) / 2, M_PI / 2);
+    sliceIndex = getSliceIndex(angle, PI_2, 0);
+    // sensor
+    //float a = digitalRead(13);
+    //Serial.println(a);
+    // Tick speed
+    //delay(1);
 }

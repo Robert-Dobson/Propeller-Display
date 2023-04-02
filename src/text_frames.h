@@ -33,7 +33,7 @@ class TextFrame
      {0b01000000, 0b11100000, 0b01110000, 0b00111111, 0b00111111, 0b01110000, 0b11100000, 0b01000000},
      {0b11000011, 0b11100011, 0b11110011, 0b11111011, 0b11011111, 0b11001111, 0b11000111, 0b11000011}};
     int spaceSize = 8;
-    int spaceBetweenLetters = 1;
+    int spaceBetweenLetters = 2;
     int size = 0;
 
     int getCharFrameIndex(char letter);
