@@ -36,6 +36,7 @@ void update_leds(unsigned char led_vals)
 
 void do_game_process()
 {
+  Serial.println("hi");
   GameLogic g;
   if (g.gameRunning)
   {
@@ -89,11 +90,11 @@ void setup()
   {
     pinMode(led_pins[i], OUTPUT);
   }
-  TextFrame textFrame;
-  char text[] = {'B', 'C', 'S', 'S'};
-  frame = textFrame.convertStringToFrame(text);
-  size = textFrame.getSize();
-  lastUpdateTime = millis();
+  // TextFrame textFrame;
+  // char text[] = {'B', 'C', 'S', 'S'};
+  // frame = textFrame.convertStringToFrame(text);
+  // size = textFrame.getSize();
+  // lastUpdateTime = millis();
 }
 
 void loop()

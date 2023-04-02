@@ -1,8 +1,10 @@
 #include <Arduino.h>
 #include "game_logic.h"
 
-void GameLogic::gameStartup() {
-    for (int i = 0; i < sizeof(obstacles); i++)
+void GameLogic::gameStartup()
+{
+    int length = sizeof(obstacles) / sizeof(int);
+    for (int i = 0; i < length; i++)
     {
         obstacles[i] = -1;
     }
@@ -38,18 +40,19 @@ void GameLogic::gameTick()
     }
 
     // Obstacle Despawn
-    for (int i = 0; i < sizeof(obstacles); i++)
+    int length = sizeof(obstacles) / sizeof(int);
+    for (int i = 0; i < length; i++)
     {
         // If player has just moved past an obstacle
         if ((obstacles[i] + 3) % width == xPos)
         {
-            //Despawn obstacle
+            // Despawn obstacle
             obstacles[i] = -1;
         }
     }
 
     // Obstacle Collision
-    for (int i = 0; i < sizeof(obstacles); i++)
+    for (int i = 0; i < length; i++)
     {
         if (obstacles[i] > (xPos - 1) % width && obstacles[i] < (xPos + 1) % width)
         {
@@ -58,37 +61,35 @@ void GameLogic::gameTick()
     }
 
     // Obstacle Generation
-    for (int i = 0; i < sizeof(obstacles); i++)
+    for (int i = 0; i < length; i++)
     {
-        //If there's an unspawned in obstacle
-        if (obstacles[i]==-1)
+        // If there's an unspawned in obstacle
+        if (obstacles[i] == -1)
         {
             int spawnPos = (xPos - 5) % width;
             if (spawnPos < 0)
             {
-                spawnPos + width;
+                spawnPos += width;
             }
-            for (int j = 0; j < sizeof(obstacles); j++)
+            for (int j = 0; j < length; j++)
             {
                 if (j != i)
                 {
-                    //If there's no obstacles nearby
-                    if (obstacles[j]-spawnPos < 6 && obstacles[j]-spawnPos > -6)
+                    // If there's no obstacles nearby
+                    if (obstacles[j] - spawnPos < 6 && obstacles[j] - spawnPos > -6)
                     {
-                        //Attempt to spawn in, 30% chance
-                        int random;
-                        //random = millis() % 10 < 4;
-                        obstacles[i] = spawnPos;
+                        // Attempt to spawn in, 30% chance
+                        bool random;
+                        random = millis() % 10 < 4;
+                        if (random)
+                        {
+                            obstacles[i] = spawnPos;
+                        }
                     }
-                    
                 }
-                
             }
-            
         }
-        
     }
-    
 }
 
 unsigned char *GameLogic::generateFrame()
@@ -112,7 +113,8 @@ unsigned char *GameLogic::generateFrame()
     // Obstacle draw
     int obstacleWidth = 2;
     int obstacleHeight = 2;
-    for (int i = 0; i < sizeof(obstacles); i++)
+    int length = sizeof(obstacles) / sizeof(int);
+    for (int i = 0; i < length; i++)
     {
         if (obstacles[i] >= 0)
         {
@@ -125,8 +127,8 @@ unsigned char *GameLogic::generateFrame()
             }
         }
     }
-    //Convert to char array
-    unsigned char output[width];
+    // Convert to char array
+    unsigned char *output = (unsigned char *)malloc((width * 8) * sizeof(unsigned char));
     for (int i = 0; i < width; i++)
     {
         char byte = 0;
@@ -134,10 +136,9 @@ unsigned char *GameLogic::generateFrame()
         {
             if (Frame[i][j])
             {
-                byte << 1;
+                byte = byte << 1;
                 byte++;
             }
-            
         }
         output[width] = byte;
     }
