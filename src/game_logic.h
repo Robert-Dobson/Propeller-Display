@@ -13,7 +13,7 @@ public:
 
     // Stats
     int xPos = 0;
-    int yPos = 1;
+    int yPos = 2;
     int jumpTimer = 0;
     bool jumping = false;
 

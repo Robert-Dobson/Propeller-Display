@@ -15,7 +15,7 @@ int game_tick_time = max_game_tick_time;
 
 // Angles
 double angle = 0;
-double anglePerMilisecond = 1.0 / 1000; // Angle per second div by 1000
+double anglePerMilisecond = 100.0 / 1000; // Angle per second div by 1000
 double lastUpdateTime;
 int sliceIndex = 0;
 
@@ -42,6 +42,7 @@ void do_game_process()
     g.gameTick();
     if (g.gameRunning)
     {
+      free(frame);
       frame = g.generateFrame();
       size = g.width;
 

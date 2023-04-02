@@ -9,7 +9,7 @@ void GameLogic::gameStartup()
         obstacles[i] = -1;
     }
     xPos = 0;
-    yPos = 1;
+    yPos = 2;
     jumpTimer = 0;
     jumping = false;
 }
@@ -31,12 +31,12 @@ void GameLogic::gameTick()
     else if (jumpTimer == 1)
     {
         jumpTimer = 0;
-        yPos = 1;
+        yPos = 2;
     }
     else if (jumping)
     {
         jumpTimer = 5;
-        yPos = 3;
+        yPos = 5;
     }
 
     // Obstacle Despawn
@@ -83,7 +83,7 @@ void GameLogic::gameTick()
                         random = millis() % 10 < 4;
                         if (random)
                         {
-                            obstacles[i] = spawnPos;
+                            //obstacles[i] = spawnPos;
                         }
                     }
                 }
@@ -96,8 +96,8 @@ unsigned char *GameLogic::generateFrame()
 {
     bool Frame[width][height] = {0};
     // Player draw
-    int playerWidth = 2;
-    int playerHeight = 2;
+    int playerWidth = 3;
+    int playerHeight = 3;
     for (int i = xPos; i < xPos + playerWidth; i++)
     {
         for (int j = yPos; j < yPos + playerHeight; j++)
@@ -109,6 +109,7 @@ unsigned char *GameLogic::generateFrame()
     for (int i = 0; i < width; i++)
     {
         Frame[i][0] = true;
+        Frame[i][1] = true;
     }
     // Obstacle draw
     int obstacleWidth = 2;
@@ -120,7 +121,7 @@ unsigned char *GameLogic::generateFrame()
         {
             for (int j = obstacles[i]; j < obstacles[i] + obstacleWidth; j++)
             {
-                for (int k = 1; k < 1 + obstacleHeight; k++)
+                for (int k = 1; k < 2 + obstacleHeight; k++)
                 {
                     Frame[j%width][k%height] = true;
                 }
