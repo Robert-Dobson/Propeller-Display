@@ -26,10 +26,11 @@ int index = 0;
 
 // Screen
 unsigned char *frame = NULL;
+unsigned char *wave = NULL;
 int size = 0;
 
 // Pass in a slice
-void update_leds(unsigned char led_vals)
+void update_leds(unsigned char led_vals, int time_delay = 100)
 {
   for (int i = 0; i < num_of_leds; i++)
   {
@@ -37,8 +38,9 @@ void update_leds(unsigned char led_vals)
     digitalWrite(led_pins[i], val);
     // Serial.print(val);
   }
-  delay(1.5);
+  delay(time_delay);
 }
+
 
 /*
 void do_game_process()
@@ -92,7 +94,7 @@ void updateAngle()
 void setup()
 {
   // set LED pins as outputs
-  // Serial.begin(9600);
+  Serial.begin(9600);
   pinMode(13, INPUT);
   for (int i = 0; i < num_of_leds; i++)
   {
@@ -103,16 +105,28 @@ void setup()
   char text[] = {'O', 'L', 'L', 'E', 'H', ' ', ' ', ' ', ' ', ' '};
   frame = textFrame.convertStringToFrame(text);
   size = textFrame.getSize();
+  wave = textFrame.wave;
   // lastUpdateTime = millis();
 }
 
-void loop()
-{
+bool increasing_wave = true;
+void loop(){
+  size = 8;
   if (size != 0){
-    update_leds(frame[index]);
-    index++;
-    if (index == size){
-      index = 0;
+
+    update_leds(wave[index], index*10);
+    // Serial.write(index);
+    Serial.write(1);
+    if (increasing_wave){
+      index++;
+    }else{
+      index--;
     }
+    if (index >= size){
+      increasing_wave = false;
+    }else if (index<=0){
+      increasing_wave=true;
+    }
+
   }
 }
