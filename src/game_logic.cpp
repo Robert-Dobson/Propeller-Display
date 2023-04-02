@@ -98,11 +98,11 @@ unsigned char *GameLogic::generateFrame()
     // Player draw
     int playerWidth = 2;
     int playerHeight = 2;
-    for (int i = xPos; i < playerWidth; i = (i + 1) % width)
+    for (int i = xPos; i < xPos + playerWidth; i++)
     {
-        for (int j = yPos; j < playerHeight; j = (j + 1) % height)
+        for (int j = yPos; j < yPos + playerHeight; j++)
         {
-            Frame[i][j] = true;
+            Frame[i % width][j % height] = true;
         }
     }
     // Ground draw
@@ -118,11 +118,11 @@ unsigned char *GameLogic::generateFrame()
     {
         if (obstacles[i] >= 0)
         {
-            for (int j = obstacles[i]; j < obstacleWidth; j = (j + 1) % width)
+            for (int j = obstacles[i]; j < obstacles[i] + obstacleWidth; j++)
             {
-                for (int k = 1; k < obstacleHeight; k = (k + 1) % height)
+                for (int k = 1; k < 1 + obstacleHeight; k++)
                 {
-                    Frame[j][k] = true;
+                    Frame[j%width][k%height] = true;
                 }
             }
         }
@@ -131,16 +131,16 @@ unsigned char *GameLogic::generateFrame()
     unsigned char *output = (unsigned char *)malloc((width * 8) * sizeof(unsigned char));
     for (int i = 0; i < width; i++)
     {
-        char byte = 0;
+        unsigned char byte = 0;
         for (int j = 0; j < height; j++)
         {
-            if (Frame[i][j])
+            byte = byte << 1;
+            if (Frame[i][j] == true)
             {
-                byte = byte << 1;
                 byte++;
             }
         }
-        output[width] = byte;
+        output[i] = byte;
     }
     return output;
 }

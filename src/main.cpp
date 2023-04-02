@@ -15,7 +15,7 @@ int game_tick_time = max_game_tick_time;
 
 // Angles
 double angle = 0;
-double anglePerMilisecond = 160.0 / 1000; // Angle per second div by 1000
+double anglePerMilisecond = 1.0 / 1000; // Angle per second div by 1000
 double lastUpdateTime;
 int sliceIndex = 0;
 
@@ -36,7 +36,6 @@ void update_leds(unsigned char led_vals)
 
 void do_game_process()
 {
-  Serial.println("hi");
   GameLogic g;
   if (g.gameRunning)
   {
@@ -45,9 +44,29 @@ void do_game_process()
     {
       frame = g.generateFrame();
       size = g.width;
+
+      //TEST
+      // for (int i = 0; i < num_of_leds; i++)
+      // {
+      //   for (int j = 0; j < size; j++)
+      //   {
+      //     int val = (frame[j] >> i) & 0x01;
+      //     if (val == 1)
+      //     {
+      //       Serial.print("*");
+      //     }
+      //     else
+      //     {
+      //       Serial.print(" ");
+      //     }
+      //   }
+      //   Serial.println();
+      // }
+      // Serial.println("\n\n\n");
     }
     else
     {
+      Serial.println("Game over");
       TextFrame textFrame;
       char text[] = {'G', 'A', 'M', 'E', 'O', 'V', 'E', 'R'};
       frame = textFrame.convertStringToFrame(text);
@@ -84,7 +103,7 @@ void updateAngle()
 void setup()
 {
   // set LED pins as outputs
-  // Serial.begin(9600);
+  Serial.begin(9600);
   pinMode(13, INPUT);
   for (int i = 0; i < num_of_leds; i++)
   {

@@ -18,7 +18,7 @@ public:
     bool jumping = false;
 
     // Game
-    bool gameRunning = false;
+    bool gameRunning = true;
 
     void gameStartup();
     void gameTick();
