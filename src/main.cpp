@@ -1,24 +1,11 @@
 #include <Arduino.h>
-<<<<<<< Updated upstream
-#include "text_frames.h"
-// #include "game_logic.h"
-=======
->>>>>>> Stashed changes
 #include <time.h>
 #include "text_frames.h"
 
 
 
-<<<<<<< Updated upstream
 unsigned char Triangle[] = {0b00000011, 0b00001111, 0b00111111, 0b11111111, 0b11111111, 0b00111111, 0b00001111, 0b00000011};
 unsigned char Square[] = {0b11111111, 0b11111111, 0b11000011, 0b11000011, 0b11000011, 0b11000011, 0b11111111, 0b11111111};
-=======
-// Constants
-const int led_pins[] = {10, 9, 8, 7, 6, 5, 4, 3};
-const int num_of_leds = 8;
-const int size_of_frame = 100;
-unsigned long int rpm, maxRPM;
->>>>>>> Stashed changes
 
 // Constants
 const int led_pins[] = {10, 9, 8, 7, 6, 5, 4, 3};
@@ -97,19 +84,12 @@ void updateFrameText(char *text){
 
 void setup()
 {
-  // Serial.begin(9600);
   // set LED pins as outputs
   pinMode(13, INPUT);
   for (int i = 0; i < num_of_leds; i++)
   {
     pinMode(led_pins[i], OUTPUT);
   }
-<<<<<<< Updated upstream
-=======
-  char text[] = {'T', 'E', 'S', 'T'};
-  updateFrameText(text);
-  lastUpdateTime = millis();
->>>>>>> Stashed changes
 }
 
 void textLoop(){
