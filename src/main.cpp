@@ -100,8 +100,23 @@ void setup()
   }
   
   TextFrame textFrame;
-  char text[] = {'O', 'L', 'L', 'E', 'H', ' ', ' ', ' ', ' ', ' '};
-  frame = textFrame.convertStringToFrame(text);
+  char text[] = {' ', ' ', ' ', 'G', 'O', 'O', 'D', 'B', 'Y', 'E', '\0'};
+  
+  //Get length
+  int index = 0;
+  while (text[index] != '\0'){
+    index++;
+  }
+  int length = index;
+
+  char reversetext[length+1];
+  for (int i = length-1; i >= 0; i--){
+    reversetext[(length-1)-i] = text[i];
+  }
+  reversetext[length] = '\0';
+
+
+  frame = textFrame.convertStringToFrame(reversetext);
   size = textFrame.getSize();
   // lastUpdateTime = millis();
 }
