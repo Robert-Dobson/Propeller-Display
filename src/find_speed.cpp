@@ -1,5 +1,6 @@
 /*
 #include <Arduino.h>
+#include <math.h>
 
 float start;
 float last = 0;
@@ -29,8 +30,8 @@ void loop()
     else{
       endTime = millis();
       unsigned long timeDif = endTime - startTime;
-      if (timeDif > 25){
-        Serial.println(timeDif);
+      if (timeDif > 20){
+        Serial.println((2 * M_PI * 1000) /timeDif);
       }
       startTime = millis();
     }
