@@ -9,13 +9,19 @@ int TextFrame::getCharFrameIndex(char letter)
 
 unsigned char *TextFrame::convertStringToFrame(char *text)
 {
-    unsigned char *frame = (unsigned char *)malloc((sizeof(*text) * 8 + spaceBetweenLetters) * sizeof(unsigned char));
+    int Tindex = 0;
+    while (text[Tindex] != '\0'){
+        Tindex++;
+    }
+    int length = Tindex + 1;
+
+    unsigned char *frame = (unsigned char *)malloc((length * 8 + spaceBetweenLetters) * sizeof(unsigned char));
     int index = 0; // Keeping track of position in frame
 
     if (frame != NULL)
     {
         // Iterate through each letter of string
-        int length = sizeof(text) / sizeof(char);
+        
         for (int i = 0; i < length; i++)
         {
 

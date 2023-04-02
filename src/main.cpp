@@ -37,7 +37,7 @@ void update_leds(unsigned char led_vals)
     digitalWrite(led_pins[i], val);
     // Serial.print(val);
   }
-  delay(2);
+  delay(1.5);
 }
 
 /*
@@ -100,22 +100,19 @@ void setup()
   }
   
   TextFrame textFrame;
-  //char text[] = {'A', 'B', 'C', 'D'};
-  //frame = textFrame.convertStringToFrame(text);
-  //size = textFrame.getSize();
+  char text[] = {'O', 'L', 'L', 'E', 'H', ' ', ' ', ' ', ' ', ' '};
+  frame = textFrame.convertStringToFrame(text);
+  size = textFrame.getSize();
   // lastUpdateTime = millis();
 }
 
 void loop()
 {
-  for (int i = 0; i < 8; i++){
-    update_leds(Triangle[i]);
+  if (size != 0){
+    update_leds(frame[index]);
+    index++;
+    if (index == size){
+      index = 0;
+    }
   }
-  update_leds(0);
-  update_leds(0);
-  for (int i = 0; i < 8; i++){
-    update_leds(Square[i]);
-  }
-  update_leds(0);
-  update_leds(0);
 }
